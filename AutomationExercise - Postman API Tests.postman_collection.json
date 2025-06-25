@@ -1,0 +1,900 @@
+{
+	"info": {
+		"_postman_id": "51ed41fe-b001-4195-bee8-8f6522462bee",
+		"name": "AutomationExercise - Postman API Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45565448"
+	},
+	"item": [
+		{
+			"name": "productsList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is in JSON format\", function () {\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/productsList",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"productsList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "productsList",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/productsList",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"productsList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BrandsList",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has brand list\", function () {\r",
+							"    const res = pm.response.json();\r",
+							"    pm.expect(res.responseCode).to.eql(200);\r",
+							"    pm.expect(res.brands.length).to.be.above(0);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/brandsList",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"brandsList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BrandList",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/brandsList",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"brandsList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "searchProduct",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains product list\", function () {\r",
+							"    const res = pm.response.json();\r",
+							"    pm.expect(res.responseCode).to.eql(200);\r",
+							"    pm.expect(res.products.length).to.be.above(0); // or check specific product\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "search_product",
+							"value": "Kids",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/searchProduct",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"searchProduct"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Without Data Searching",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/searchProduct",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"searchProduct"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login with Valid Credentials",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Login successful\", function () {\r",
+							"    const res = pm.response.json();\r",
+							"    pm.expect(res.responseCode).to.eql(200);\r",
+							"    pm.expect(res.message).to.include(\"User exists\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "userabc@testers.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12345678",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/verifyLogin",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"verifyLogin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login with Invalid Credentials",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// ✅ Test HTTP status\r",
+							"pm.test(\"HTTP status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// ⚠️ Warn if Content-Type is not JSON\r",
+							"pm.test(\"Warn: Response Content-Type is not application/json\", function () {\r",
+							"    const contentType = pm.response.headers.get('Content-Type');\r",
+							"    pm.expect(contentType).to.include('text/html');\r",
+							"});\r",
+							"\r",
+							"// ✅ Try parsing the body even if content-type is wrong\r",
+							"let res;\r",
+							"try {\r",
+							"    res = JSON.parse(pm.response.text());\r",
+							"} catch (err) {\r",
+							"    pm.test(\"❌ JSON parsing failed\", function () {\r",
+							"        throw new Error(\"Invalid JSON received\");\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"// ✅ Confirm responseCode exists\r",
+							"pm.test(\"Response has 'responseCode'\", function () {\r",
+							"    pm.expect(res).to.have.property(\"responseCode\");\r",
+							"});\r",
+							"\r",
+							"// ✅ Handle all known cases\r",
+							"switch (res.responseCode) {\r",
+							"    case 200:\r",
+							"        pm.test(\"✅ Login Successful\", function () {\r",
+							"            pm.expect(res.message).to.include(\"User exists\");\r",
+							"        });\r",
+							"        break;\r",
+							"\r",
+							"    case 404:\r",
+							"        pm.test(\"❌ Login Failed: User Not Found\", function () {\r",
+							"            pm.expect(res.message.toLowerCase()).to.include(\"not found\");\r",
+							"        });\r",
+							"        break;\r",
+							"\r",
+							"    case 400:\r",
+							"        pm.test(\"⚠️ Login Failed: Missing Parameter\", function () {\r",
+							"            pm.expect(res.message.toLowerCase()).to.include(\"missing\");\r",
+							"        });\r",
+							"        break;\r",
+							"\r",
+							"    default:\r",
+							"        pm.test(\"❗ Unexpected responseCode\", function () {\r",
+							"            pm.expect.fail(`Unexpected responseCode: ${res.responseCode}`);\r",
+							"        });\r",
+							"}\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "abc@email.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "wrongpassword",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/verifyLogin",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"verifyLogin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Without Email Parameter",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "abc@email.com",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "wrongpassword",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/verifyLogin",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"verifyLogin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"❌ DELETE should not be allowed\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([403, 405]);\r",
+							"    \r",
+							"    // Optional: If it's HTML, check it's a forbidden page\r",
+							"    const contentType = pm.response.headers.get('Content-Type');\r",
+							"    if (contentType.includes('text/html')) {\r",
+							"        pm.test(\"Response is an HTML error page\", function () {\r",
+							"            pm.expect(pm.response.text()).to.include(\"403 Forbidden\");\r",
+							"        });\r",
+							"    } else {\r",
+							"        // If JSON (older case), parse and check message\r",
+							"        const res = JSON.parse(pm.response.text());\r",
+							"        pm.test(\"Message indicates unsupported method\", function () {\r",
+							"            pm.expect(res.message.toLowerCase()).to.include(\"not supported\");\r",
+							"        });\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}verifyLogin",
+					"host": [
+						"{{base_url}}verifyLogin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateAccount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "API Tester",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "userab2c@testers.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12345678",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "Mr",
+							"type": "text"
+						},
+						{
+							"key": "birth_date",
+							"value": "15",
+							"type": "text"
+						},
+						{
+							"key": "birth_month",
+							"value": "4",
+							"type": "text"
+						},
+						{
+							"key": "birth_year",
+							"value": "2007",
+							"type": "text"
+						},
+						{
+							"key": "firstname",
+							"value": "API",
+							"type": "text"
+						},
+						{
+							"key": "lastname",
+							"value": "Tester",
+							"type": "text"
+						},
+						{
+							"key": "company",
+							"value": "Software House",
+							"type": "text"
+						},
+						{
+							"key": "address1",
+							"value": "India 1",
+							"type": "text"
+						},
+						{
+							"key": "address2",
+							"value": "india 2",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "India",
+							"type": "text"
+						},
+						{
+							"key": "zipcode",
+							"value": "34567",
+							"type": "text"
+						},
+						{
+							"key": "state",
+							"value": "Punjab",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Chandigarh",
+							"type": "text"
+						},
+						{
+							"key": "mobile_number",
+							"value": "912333377373",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/createAccount",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"createAccount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteAccount",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "API Tester",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "user@tester.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12345678",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "Mr",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "birth_date",
+							"value": "11",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "birth_month",
+							"value": "9",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "birth_year",
+							"value": "1999",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "firstname",
+							"value": "API",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "lastname",
+							"value": "Tester",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "company",
+							"value": "Software House",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "address1",
+							"value": "India 1",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "address2",
+							"value": "india 2",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "country",
+							"value": "India",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "zipcode",
+							"value": "34567",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "state",
+							"value": "Punjab",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "city",
+							"value": "Chandigarh",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "mobile_number",
+							"value": "912333377373",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/deleteAccount",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"deleteAccount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateAccount",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "API Updater",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "userabc@testers.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12345678",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "Mr",
+							"type": "text"
+						},
+						{
+							"key": "birth_date",
+							"value": "11",
+							"type": "text"
+						},
+						{
+							"key": "birth_month",
+							"value": "9",
+							"type": "text"
+						},
+						{
+							"key": "birth_year",
+							"value": "1999",
+							"type": "text"
+						},
+						{
+							"key": "firstname",
+							"value": "API",
+							"type": "text"
+						},
+						{
+							"key": "lastname",
+							"value": "Tester",
+							"type": "text"
+						},
+						{
+							"key": "company",
+							"value": "Software House",
+							"type": "text"
+						},
+						{
+							"key": "address1",
+							"value": "India 1",
+							"type": "text"
+						},
+						{
+							"key": "address2",
+							"value": "india 2",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "India",
+							"type": "text"
+						},
+						{
+							"key": "zipcode",
+							"value": "34567",
+							"type": "text"
+						},
+						{
+							"key": "state",
+							"value": "Punjab",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Chandigarh",
+							"type": "text"
+						},
+						{
+							"key": "mobile_number",
+							"value": "912333377373",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/updateAccount",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"updateAccount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserDetailByEmail",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "API Updater",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "userabc@testers.com",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "12345678",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "title",
+							"value": "Mr",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "birth_date",
+							"value": "11",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "birth_month",
+							"value": "9",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "birth_year",
+							"value": "1999",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "firstname",
+							"value": "API",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "lastname",
+							"value": "Tester",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "company",
+							"value": "Software House",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "address1",
+							"value": "India 1",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "address2",
+							"value": "india 2",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "country",
+							"value": "India",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "zipcode",
+							"value": "34567",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "state",
+							"value": "Punjab",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "city",
+							"value": "Chandigarh",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "mobile_number",
+							"value": "912333377373",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/getUserDetailByEmail?email=userabc@testers.com",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"getUserDetailByEmail"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "userabc@testers.com"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
